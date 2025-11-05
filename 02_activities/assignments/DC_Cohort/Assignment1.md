@@ -24,6 +24,7 @@ If you encounter any difficulties or have questions, please don't hesitate to re
 *** 
 
 ## Section 1:
+
 You can start this section following *session 1*.
 
 Steps to complete this part of the assignment:
@@ -185,25 +186,13 @@ To insert the new row use VALUES, specifying the value you want for each column:
 
 *** 
 
-## Section 4:
-You can start this section anytime.
 
-Steps to complete this part of the assignment:
-- Read the article
-- Write, within this markdown file, <1000 words.
+## Section 4 – Ethics Reflection
 
-### Ethics
+The article *“When Databases Get to Define Family”* looks at how ostensibly technical systems, like national identification or health databases, reflect and implement social and political values. For instance, Pakistan's national database, NADRA, is designed on assumptions of what constitutes a "family": a male head of household with dependants. This makes it hard for women, single parents, and non-traditional families to access services or assert relationships not conforming to this default. The database does not simply represent reality but creates it through the power of inclusion and exclusion.
 
-Read: Qadri, R. (2021, November 11). _When Databases Get to Define Family._  Wired. <br>
-    https://www.wired.com/story/pakistan-digital-database-family-design/
+This example reminded me that databases are never neutral, whether in or out of health and social research. Every column name, data type, and rule expresses a judgment about what matters and who counts. For example, gender fields are often binary; addresses assume fixed housing; race and ethnicity categories reflect administrative convenience rather than lived experience in medical and population databases. These decisions may seem minor, but they can reproduce inequities and limit how people can represent themselves.
 
-Link if you encounter a paywall: https://archive.is/srKHV or https://web.archive.org/web/20240422105834/https://www.wired.com/story/pakistan-digital-database-family-design/
+In my own work with health system and program data, I see parallel value systems embedded in datasets. Decisions about which outcomes are "valid," what counts as a patient encounter, or how pain is measured all reflect priorities set by institutions and policies. Unless we question them, such assumptions can get reproduced in data systems that, often unknowingly, may perpetuate structural inequities such as the under-representation of Indigenous communities or reinforcing gender stereotypes in health outcomes.
 
-**What values systems are embedded in databases and data systems you encounter in your day-to-day life?**
-
-Consider, for example, concepts of fariness, inequality, social structures, marginalization, intersection of technology and society, etc.
-
-
-```
-Your thoughts...
-```
+Ultimately, the article concluded that fairness in data systems starts with design. Ethical database work means involving diverse voices in defining data structures, documenting assumptions transparently, and recognizing the power dynamics of how the data are collected and linked. A responsible database should make inclusion a technical requirement, not an afterthought.
