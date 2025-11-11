@@ -30,6 +30,9 @@ Steps to complete this part of the assignment:
 - Design a logical data model
 - Duplicate the logical data model and add another table to it following the instructions
 - Write, within this markdown file, an answer to Prompt 3
+![Bookstore Logical Model](images/bookstore_model.png)
+
+![Bookstore + Shifts Logical Model](images/bookstore_model_shifts.png)
 
 
 ###  Design a Logical Model
@@ -50,6 +53,22 @@ We want to create employee shifts, splitting up the day into morning and evening
 
 #### Prompt 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2? 
+### Customer Addresses – Type 1 vs Type 2
+
+There are two ways to design the CUSTOMER_ADDRESS table:
+
+**Option 1: Overwrite (Type 1 Slowly Changing Dimension)**
+- Columns: customer_id (FK), street, city, province, postal_code.
+- When a customer moves, the old address is replaced by the new one.
+- This keeps the database simple but loses historical data.
+
+**Option 2: Retain Changes (Type 2 Slowly Changing Dimension)**
+- Columns: address_id (PK), customer_id (FK), street, city, province, postal_code, start_date, end_date, is_current.
+- Each address change creates a new row with dates to indicate validity.
+- This preserves history for analysis of where and when customers lived.
+
+In summary, Type 1 overwrites the old record, while Type 2 adds new records to maintain a historical trail.
+
 
 **HINT:** search type 1 vs type 2 slowly changing dimensions. 
 
@@ -185,3 +204,23 @@ Consider, for example, concepts of labour, bias, LLM proliferation, moderating c
 ```
 Your thoughts...
 ```
+
+Modern ML systems aren’t autonomous minds; they’re stacks of human choices, labor, and values embedded at every layer. Boykis argues that what we call “neural networks” also includes the armies of data labelers, crowd workers, moderators, MLOps engineers, and policy teams who decide what counts as ground truth, which errors are tolerable, and what harms must be minimized. The story surfaces several ethical issues that matter in practice:
+
+**Invisible labour and precarity.** Much of the “intelligence” comes from low-paid, outsourced workers who clean and label data or moderate toxic content. Hiding this labour flattens real human costs, especially in the Global South, and obscures accountability for mental-health impacts and fair compensation.
+
+**Value-laden datasets.** Data is never neutral. Sampling frames, scraping targets, deduping rules, and label taxonomies all encode bias. If toxicity filters are trained on anglocentric forums, non-standard dialects or minority vernaculars can be misclassified as unsafe. These upstream choices shape downstream harms (shadow bans, unequal error rates, stereotype amplification).
+
+**Feedback loops and scale.** Once deployed, models are retrained on their own outputs (and on users’ reactions). This can entrench early biases and make later corrections harder. Platform incentives (engagement, cost reduction) can pressure teams to ship scalable systems faster than governance can mature.
+
+**Diffuse accountability.** When outcomes are harmful, responsibility is spread over data vendors, labelers, modelers, product, policy, trust & safety, and leadership. Without explicit assignment of accountability, harms are “no one’s fault.”
+
+**What good practice looks like.**  
+- *Make human labour visible and safe:* fair pay, trauma-informed supports for moderators, vendor audits.  
+- *Datasheets & Model Cards by default:* document provenance, sampling, label schemas, known failure modes, and intended use.  
+- *Participatory evaluation:* include impacted communities in red-teaming and success criteria.  
+- *Govern deployment not just development:* phased rollouts, kill-switches, incident reporting, and post-mortems with remediation.  
+- *Measure equity, not only accuracy:* track subgroup performance, automate alerting on disparate error rates, and budget for ongoing mitigation.  
+
+**Bottom line:** “AI” systems are socio-technical. Treating them as only technical hides the people who make them work and the values they instantiate. Ethical practice requires resourcing the human layers, documenting our assumptions, and designing for accountability at the same scale as deployment.
+

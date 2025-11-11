@@ -2,6 +2,21 @@
 /* SECTION 2 */
 
 -- COALESCE
+-- Find NULLs
+SELECT 
+  product_name,
+  product_size,
+  product_qty_type
+FROM product
+WHERE product_name IS NULL
+   OR product_size IS NULL
+   OR product_qty_type IS NULL;
+
+-- Fix NULLs using COALESCE
+SELECT 
+  product_name || ', ' || COALESCE(product_size, '') || ' (' || COALESCE(product_qty_type, 'unit') || ')'
+FROM product;
+
 /* 1. Our favourite manager wants a detailed long list of products, but is afraid of tables! 
 We tell them, no problem! We can produce a list with all of the appropriate details. 
 
@@ -23,6 +38,53 @@ All the other rows will remain the same.) */
 
 
 --Windowed Functions
+-- SECTION 2: WINDOWED FUNCTIONS
+/* ======================================================
+   SECTION 2 – WINDOWED FUNCTIONS
+   ====================================================== */
+
+-- (a) Number each customer's visits by date (oldest → newest)
+SELECT
+  customer_id,
+  market_date,
+  ROW_NUMBER() OVER (
+    PARTITION BY customer_id
+    ORDER BY market_date
+  ) AS visit_number
+FROM customer_purchases;
+
+-- (b) Reverse numbering so most recent visit = 1
+WITH visits AS (
+  SELECT
+    customer_id,
+    market_date,
+    ROW_NUMBER() OVER (
+      PARTITION BY customer_id
+      ORDER BY market_date DESC
+    ) AS recent_rank
+  FROM customer_purchases
+)
+SELECT *
+FROM visits
+WHERE recent_rank = 1
+ORDER BY customer_id;
+
+-- (c) Count how many times each customer bought each product
+SELECT
+  customer_id,
+  product_id,
+  market_date,
+  quantity,
+  cost_to_customer_per_qty,
+  COUNT(*) OVER (
+    PARTITION BY customer_id, product_id
+  ) AS times_customer_bought_product
+FROM customer_purchases
+ORDER BY customer_id, product_id, market_date;
+
+
+-- Label each customer's visits in order of date
+
 /* 1. Write a query that selects from the customer_purchases table and numbers each customer’s  
 visits to the farmer’s market (labeling each market date with a different number). 
 Each customer’s first visit is labeled 1, second visit is labeled 2, etc. 
